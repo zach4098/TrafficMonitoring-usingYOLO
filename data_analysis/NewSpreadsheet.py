@@ -4,7 +4,7 @@ wb = Workbook()
 workbookName = input("Enter Spreadsheet Name: ")
 if workbookName == "":
     workbookName = "data"
-wb.save("DataSpread/{}.xlsx".format(workbookName))
+wb.save("data/data_spreadsheet/{}.xlsx".format(workbookName))
 ws = wb.active
 ws.column_dimensions['A'].width = 30
 ws.cell(1, 1).value = "File Name"
@@ -38,4 +38,6 @@ ws.cell(28, 1).value = "Night Peak Vehicles from Right"
 ws.cell(29, 1).value = "Night Peak Vph from Left"
 ws.cell(30, 1).value = "Night Peak Vph from Right"
 
-wb.save("DataSpread/{}.xlsx".format(workbookName))
+wb.save("{}/{}.xlsx".format("data/data_spreadsheet/", workbookName))
+
+print("done!")

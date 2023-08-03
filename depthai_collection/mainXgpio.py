@@ -1,3 +1,6 @@
+import sys
+sys.path.append("/Users/zacharystarr/Desktop/TrafficMonitoring-usingYOLO")
+
 from pathlib import Path
 import cv2
 import depthai as dai
@@ -9,8 +12,6 @@ from pynput import mouse
 import params
 import os
 import datetime
-
-#os.chdir("/home/fyp2022/Desktop/YOLODataCollector/")
 
 labelMap = [
     "pedestrian",     "bicycle",    "car",           "motorbike",     "aeroplane",   "bus",           "train",
@@ -27,7 +28,7 @@ labelMap = [
     "teddy bear",     "hair drier", "toothbrush"
 ]
 
-allowedLabels = ["bicycle", "car", "motorbike", "bus", "truck"]
+allowedLabels = params.allowedLabels
 
 def getAllowedItems(items):
     whiteList = []
@@ -50,7 +51,7 @@ def time_convert(sec):
 # Create pipeline
 pipeline = dai.Pipeline()
 
-nnPath = blobconverter.from_openvino("./YOLOv6t_COCO/yolov6t_coco_416x416.xml", "./YOLOv6t_COCO/yolov6t_coco_416x416.bin", shaves=6)
+nnPath = blobconverter.from_openvino(params.nnPathXml, params.nnPathBin, shaves=6)
 
 t = time()
 timeOfCreation = str(ctime(t))
@@ -120,10 +121,10 @@ dataCollected = False
 # Connect to device and start pipeline
 start = True
 if start:
-    with dai.Device(pipeline) as device:
+    with dai.Device(pipeline, maxUsbSpeed=dai.UsbSpeed.HIGH) as device:
 
-        preview = device.getOutputQueue("preview", 4, False)
-        tracklets = device.getOutputQueue("tracklets", 4, False)
+        preview = device.getOutputQueue("preview", maxSize=4, blocking=False)
+        tracklets = device.getOutputQueue("tracklets", maxSize=4, blocking=False)
 
         startTime = time1.monotonic()
         counter = 0
@@ -197,14 +198,15 @@ if start:
                     elif vehicleStatus == "NEW" and bbox[0] >= rightBox[0]:
                         vehicleDir = 1
                     if vehicleID not in vehicles and sensorBox[0] <= midpoint <= sensorBox[1]:
-                        t = time()
-                        currentTime = ctime(t)
-                        stopwatchTime = round(t - timeInit)
-                        vehicles.append(vehicleID)
-                        totalVehicles += 1
-                        with open(f"./Data/Data Collected @ {timeOfCreation}.txt", "a") as fp:
-                            fp.write("{},{},{},{}\n".format(totalVehicles, time_convert(stopwatchTime), vehicleDir, labelID))
-                        dataCollected = True
+                        if vehicleStatus == "TRACKED":
+                            t = time()
+                            currentTime = ctime(t)
+                            stopwatchTime = round(t - timeInit)
+                            vehicles.append(vehicleID)
+                            totalVehicles += 1
+                            with open(f"./Data/Data Collected @ {timeOfCreation}.txt", "a") as fp:
+                                fp.write("{},{},{},{}\n".format(totalVehicles, time_convert(stopwatchTime), vehicleDir, labelID))
+                            dataCollected = True
                     if vehicleStatus == "REMOVED" or sensorBox[0] > midpoint or sensorBox[1] < midpoint:
                         if vehicleID in vehicles:
                             vehicles.remove(vehicleID)
@@ -215,13 +217,15 @@ if start:
                         vehicleDir = 1
 
                     if vehicleID not in vehicles and sensorBoxY[0] <= midpointY <= sensorBoxY[1]:
-                        t = time()
-                        currentTime = ctime(t)
-                        vehicles.append(vehicleID)
-                        totalVehicles += 1
-                        with open(f"./Data/Data Collected @ {timeOfCreation}.txt", "a") as fp:
-                            fp.write("{}-{}-{}-{}\n".format(totalVehicles, str(currentTime), vehicleDir, label))
-                        dataCollected = True
+                        if vehicleStatus == "TRACKED":
+                            t = time()
+                            currentTime = ctime(t)
+                            stopwatchTime = round(t - timeInit)
+                            vehicles.append(vehicleID)
+                            totalVehicles += 1
+                            with open(f"./Data/Data Collected @ {timeOfCreation}.txt", "a") as fp:
+                                fp.write("{},{},{},{}\n".format(totalVehicles, time_convert(stopwatchTime), vehicleDir, labelID))
+                            dataCollected = True
                     if vehicleStatus == "REMOVED" or sensorBoxY[0] > midpointY or sensorBoxY[1] < midpointY:
                         if vehicleID in vehicles:
                             vehicles.remove(vehicleID)

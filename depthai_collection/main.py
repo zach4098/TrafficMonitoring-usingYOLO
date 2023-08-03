@@ -1,3 +1,6 @@
+import sys
+sys.path.append("/Users/zacharystarr/Desktop/TrafficMonitoring-usingYOLO")
+
 from pathlib import Path
 import cv2
 import depthai as dai
@@ -11,7 +14,7 @@ import RPi.GPIO as GPIO
 import os
 import datetime
 
-os.chdir("/home/fyp2022/Desktop/YOLODataCollector/")
+os.chdir(params.directory)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -33,7 +36,7 @@ labelMap = [
     "teddy bear",     "hair drier", "toothbrush"
 ]
 
-allowedLabels = ["bicycle", "car", "motorbike", "bus", "truck"]
+allowedLabels = params.allowedLabels
 
 def getAllowedItems(items):
     whiteList = []
@@ -56,7 +59,7 @@ def time_convert(sec):
 # Create pipeline
 pipeline = dai.Pipeline()
 
-nnPath = blobconverter.from_openvino("./YOLOv6t_COCO/yolov6t_coco_416x416.xml", "./YOLOv6t_COCO/yolov6t_coco_416x416.bin", shaves=6)
+nnPath = blobconverter.from_openvino(params.nnPathXml, params.nnPathBin, shaves=6)
 
 t = time()
 timeOfCreation = str(ctime(t))

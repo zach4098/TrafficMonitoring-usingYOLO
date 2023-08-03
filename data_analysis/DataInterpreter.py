@@ -1,3 +1,6 @@
+import sys
+sys.path.append("/Users/zacharystarr/Desktop/TrafficMonitoring-usingYOLO")
+
 import os
 from datetime import datetime, timedelta
 from openpyxl import Workbook, load_workbook
@@ -99,7 +102,7 @@ def ReadFile(folder, file, lines, startTime, endTime, differenceTime, mPeakV, nP
     if nightPeakVehicles != "N/A":
         nightPeakStart, nightPeakEnd = RefreshPeakTimes(nightPeakVehicles)
 
-    wb = load_workbook("DataSpread/{}".format(params.defaultSpreadsheetName))
+    wb = load_workbook("{}/{}".format(params.SpreadsheetFolder, params.SpreadsheetName))
     ws = wb.active
     currentColumn = 2
     openRow = False
@@ -141,7 +144,7 @@ def ReadFile(folder, file, lines, startTime, endTime, differenceTime, mPeakV, nP
     ws.cell(29, currentColumn).value = nvPerHourLeft
     ws.cell(30, currentColumn).value = nVPerHourRight
 
-    wb.save("DataSpread/{}".format(params.defaultSpreadsheetName))
+    wb.save("{}/{}".format(params.SpreadsheetFolder, params.SpreadsheetName))
 
 def FilterLines(lines, vehicle_type):
     count = 0
@@ -222,8 +225,11 @@ def PeakHours(timeInit, timeFinal, lines):
         vTime = vTime + adjusterEnd
         if timeInit <= vTime.time() <= timeFinal:
             vehicles.append(item)
-    peakStart = ReadItemTime(vehicles[0])
-    peakEnd = ReadItemTime(vehicles[len(vehicles) - 1])
+    if len(vehicles) > 0:
+        peakStart = ReadItemTime(vehicles[0])
+        peakEnd = ReadItemTime(vehicles[len(vehicles) - 1])
+    else:
+        peakStart = peakEnd = "N/A"
     return peakStart, peakEnd, vehicles
 
 def CalculatePerHours(lines, total_hours = None, numVehicles = None, returnTotalHours = False):
@@ -260,7 +266,7 @@ def InitializePeak(lines):
         returnPeakM = True
         mPeakHoursStart = input("Input Peak Start: ")
         if mPeakHoursStart == "":
-            mPeakHoursStart = ReadRawTime(params.defaultMorningPeakStart)
+            mPeakHoursStart = ReadRawTime(params.MorningPeakStart)
             mPeakHoursStart = mPeakHoursStart.time()
         elif mPeakHoursStart != "":
             mPeakHoursStart = mPeakHoursStart.split(':')
@@ -272,7 +278,7 @@ def InitializePeak(lines):
             mPeakHoursStart = mPeakHoursStart.time()
         mPeakHoursEnd = input("Input Peak End: ")
         if mPeakHoursEnd == "":
-            mPeakHoursEnd = ReadRawTime(params.defaultMorningPeakEnd)
+            mPeakHoursEnd = ReadRawTime(params.MorningPeakEnd)
             mPeakHoursEnd = mPeakHoursEnd.time()
         elif mPeakHoursEnd != "":
             mPeakHoursEnd = mPeakHoursEnd.split(':')
@@ -282,16 +288,18 @@ def InitializePeak(lines):
                 mPeakHoursEnd.append("00")
             mPeakHoursEnd = ReadRawTime("".join(mPeakHoursEnd))
             mPeakHoursEnd = mPeakHoursEnd.time()
-
         mPeakRealStart, mPeakRealEnd, morningPeakVehicles = PeakHours(mPeakHoursStart, mPeakHoursEnd, lines)
-        mPeakRealStart += adjusterEnd
-        mPeakRealEnd = mPeakRealEnd + adjusterEnd
+        if mPeakRealStart != "N/A":
+            mPeakRealStart += adjusterEnd
+            mPeakRealEnd = mPeakRealEnd + adjusterEnd
+        else:
+            returnPeakM = False
     peakHoursN = input("Night Peak? y/n: ")
     if peakHoursN == 'y':
         returnPeakN = True
         nPeakHoursStart = input("Input Peak Start: ")
         if nPeakHoursStart == "":
-            nPeakHoursStart = ReadRawTime(params.defaultNightPeakStart)
+            nPeakHoursStart = ReadRawTime(params.NightPeakStart)
             nPeakHoursStart = nPeakHoursStart.time()
         elif nPeakHoursStart != "":
             nPeakHoursStart = nPeakHoursStart.split(":")
@@ -304,7 +312,7 @@ def InitializePeak(lines):
 
         nPeakHoursEnd = input("Input Peak End: ")
         if nPeakHoursEnd == "":
-            nPeakHoursEnd = ReadRawTime(params.defaultNightPeakEnd)
+            nPeakHoursEnd = ReadRawTime(params.NightPeakEnd)
             nPeakHoursEnd = nPeakHoursEnd.time()
         elif nPeakHoursEnd != "":
             nPeakHoursEnd = nPeakHoursEnd.split(":")
@@ -315,19 +323,25 @@ def InitializePeak(lines):
             nPeakHoursEnd = ReadRawTime("".join(nPeakHoursEnd))
             nPeakHoursEnd = nPeakHoursEnd.time()
         nPeakRealStart, nPeakRealEnd, nightPeakVehicles = PeakHours(nPeakHoursStart, nPeakHoursEnd, lines)
-        nPeakRealStart = nPeakRealStart + adjusterEnd
-        nPeakRealEnd = nPeakRealEnd + adjusterEnd
+        if nPeakRealStart != "N/A":
+            nPeakRealStart = nPeakRealStart + adjusterEnd
+            nPeakRealEnd = nPeakRealEnd + adjusterEnd
+        else:
+            returnPeakN = False
     
-    if not returnPeakM:
+    if not returnPeakM and returnPeakN:
         morningPeakVehicles = mPeakHoursStart = mPeakHoursEnd = mPeakRealStart = mPeakRealEnd = "N/A"
         return morningPeakVehicles, nightPeakVehicles, mPeakRealStart, mPeakRealEnd, nPeakRealStart.time(), nPeakRealEnd.time()
-    if not returnPeakN:
+    if not returnPeakN and returnPeakM:
         nightPeakVehicles = nPeakHoursStart = nPeakHoursEnd =  nPeakRealStart = nPeakRealEnd ="N/A"
         return morningPeakVehicles, nightPeakVehicles, mPeakRealStart.time(), mPeakRealEnd.time(), nPeakRealStart, nPeakRealEnd
-
-    else:
+    if returnPeakM and returnPeakN:
         return morningPeakVehicles, nightPeakVehicles, mPeakRealStart.time(), mPeakRealEnd.time(), nPeakRealStart.time(), nPeakRealEnd.time()
 
+    else:
+        morningPeakVehicles = mPeakHoursStart = mPeakHoursEnd = mPeakRealStart = mPeakRealEnd = "N/A"
+        nightPeakVehicles = nPeakHoursStart = nPeakHoursEnd =  nPeakRealStart = nPeakRealEnd ="N/A"
+        return morningPeakVehicles, nightPeakVehicles, mPeakRealStart, mPeakRealEnd, nPeakRealStart, nPeakRealEnd
 def RefreshPeakTimes(lines):
     if len(lines) > 1:
         peakStart = ReadItemTime(lines[0])
@@ -347,13 +361,13 @@ loop = True
 while loop:
     actionInput = input("Select Action: ")
     if actionInput == "clear":
-        with open("ClearSpreadsheet.py") as f:
+        with open("data_analysis/ClearSpreadsheet.py") as f:
             exec(f.read())
     elif actionInput == "new":
-        with open("NewSpreadsheet.py") as f:
+        with open("data_analysis/NewSpreadsheet.py") as f:
             exec(f.read())
     elif actionInput == "read":
-        folder = params.FolderName
+        folder = params.RawData_Folder
         collections = os.listdir("{}/".format(folder))
 
         msg = "Select File to Read:\n"
