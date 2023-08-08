@@ -81,7 +81,7 @@ camRgb.setPreviewSize(416, 416)
 camRgb.setResolution(dai.ColorCameraProperties.SensorResolution.THE_1080_P)
 camRgb.setInterleaved(False)
 camRgb.setColorOrder(dai.ColorCameraProperties.ColorOrder.BGR)
-camRgb.setFps(22)
+camRgb.setFps(30)
 
 detectionNetwork.setConfidenceThreshold(0.5)
 detectionNetwork.setNumClasses(80)
@@ -166,8 +166,8 @@ try:
         fps = 0
         frame = None
 
-        sensorBox = params.defaultSensorBox
-        sensorBoxY = params.defaultSensorBoxY
+        sensorBox = params.SensorBox
+        sensorBoxY = params.SensorBoxY
 
         leftBox = [0, 208]
         rightBox = [208, 416]

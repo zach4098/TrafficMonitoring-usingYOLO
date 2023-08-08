@@ -9,7 +9,7 @@ NightPeakStart = "173000"
 NightPeakEnd = "210000"
 
 SensorBox = [188, 228]
-SensorBoxY = [188 - 40, 228 - 40]
+SensorBoxY = [188 - 100, 228 - 100]
 
 allowedLabels = ["bicycle", "car", "motorbike", "bus", "truck"]
 
