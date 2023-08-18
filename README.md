@@ -33,6 +33,7 @@ Further notes on research/project progress can be found [here](research_journals
 
 ## Data Collection
 
-**Important Note on Data Collection:** The data collected in this project is completely ***anonymous*** due to the following reasons:
-1. No license plate data is collected
-2. 
+**Important Note on Data Collection:** The data collected in this project is ***completely anonymous*** due to the following reasons:
+1. The Depth-AI Camera does not record video
+2. No license plate data is collected
+3. When collecting data, the Raspberry Pi is not connected to any devices via Bluetooth of Wi-Fi
