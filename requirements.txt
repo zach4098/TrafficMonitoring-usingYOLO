@@ -1,0 +1,8 @@
+numpy
+opencv-python
+depthai
+pynput
+datetime
+openpyxl
+blobconverter
+natsort
