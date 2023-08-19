@@ -8,8 +8,8 @@ MorningPeakEnd = "103000"
 NightPeakStart = "173000"
 NightPeakEnd = "210000"
 
-leftRight = False
-showOutput = True
+leftRight = True
+showOutput = False
 calibrate = not showOutput
 
 SensorBox = [188, 228]
@@ -18,7 +18,7 @@ SensorBoxWidth = (SensorBox[1] - SensorBox[0])/20
 SensorBoxY = [188 - 80, 228 - 80]
 SensorBoxYHeight = (SensorBoxY[1] - SensorBoxY[0])/20
 
-allowedLabels = ["bicycle", "car", "motorbike", "bus", "truck"]
+allowedLabels = ["bicycle", "car", "motorbike", "bus", "truck", "pedestrian"]
 
 nnPathXml = "./neural_networks/YOLOv6t_COCO/yolov6t_coco_416x416.xml"
 nnPathBin = "./neural_networks/YOLOv6t_COCO/yolov6t_coco_416x416.bin"
