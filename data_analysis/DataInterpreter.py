@@ -1,15 +1,11 @@
 import os
-os.chdir("../")
+while 'data_analysis' in os.getcwd():
+    os.chdir("../")
+    print("<--")
 cwd = os.getcwd()
 
 import sys
 sys.path.append(cwd)
-
-import sys
-sys.path.append("/Users/zacharystarr/Desktop/TrafficMonitoring-usingYOLO/")
-
-import os
-os.chdir("/Users/zacharystarr/Desktop/TrafficMonitoring-usingYOLO/")
 
 from datetime import datetime, timedelta
 from openpyxl import Workbook, load_workbook
@@ -434,12 +430,16 @@ while loop:
         inputHelp = False
         with open("data_analysis/utilities/CombineData.py") as f:
             exec(f.read())
+    elif actionInput == "preprocess":
+        inputHelp = False
+        with open("data_analysis/utilities/PreProcessing.py") as f:
+            exec(f.read())
     elif actionInput == "" or actionInput == "end":
         print("ending!")
         loop = False
     elif actionInput == "help":
         inputHelp = False
-        print("Choose one of the following commands:\nread\ncombine\nclear\nnew\nend")
+        print("Choose one of the following commands:\nread\ncombine\nclear\nnew\npreprocess\nend")
     else:
         print("Error: no action found!")
         loop = False

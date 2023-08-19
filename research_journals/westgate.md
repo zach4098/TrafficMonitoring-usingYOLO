@@ -40,7 +40,7 @@ See [Raw Data @ Westgate](<../data/raw_data/Data Sample 8,4525,00:51:00,16:25:00
 #### Figure 2: Isolation of Cars, Trucks, and Buses
 <img src="../media/images/westgate/westgategraph2.png" alt="Graph2" height="400">
 
-#### Analysis
+### Analysis
 
 The following observations were made following data collection
 
@@ -49,7 +49,12 @@ The following observations were made following data collection
     - Traffic was smooth throughout, however during the peak hours a substantial build-up in vehicles would occur during red lights.
 
 **Nature of Surveyed Road:**
- - Compared with other roads such as Corporation Road (see [Corporation Road Writeup](corporation.md#analysis)), this section of Boon Lay Way contains a much higher percentage of cars(**71.1%**) as shown in [Figure 1](#figure-1-all-vehicles-with-isolation-of-cars-trucks-and-buses-vehicles-per-hour). Additionally, as seen in [Figure 2](#figure-2-isolation-of-cars-trucks-and-buses), buses and trucks are significantly less affected by these
+ - Compared with other roads such as Corporation Road (see [Corporation Road Writeup](corporation.md#analysis)), this section of Boon Lay Way contains a much higher percentage of cars(**71.1%**) as shown in [Figure 1](#figure-1-all-vehicles-with-isolation-of-cars-trucks-and-buses-vehicles-per-hour). Additionally, as seen in [Figure 2](#figure-2-isolation-of-cars-trucks-and-buses), buses and trucks are significantly less affected by rush hour, suggesting that this section of Boon Lay Way is mainly used by commuters. As most of the traffic is coming from Westgate Mall, this could be true.
+   - These conclusions can be arrived upon due to the detection network's **ability to differentiate vehicles**
+
+**Combining Data:**
+ - As noted in [observations](#observations), the data that was collected was in 3 chunks, recorded throughout 3 days. The following chunks were: **4:25 to 6:19, 6:19 to 6:49, and 6:49 to 8:30.** What is important is that the spike in traffic from 6:19 to 6:49 is due to the fact that in this instance, the network was also counting pedestrians, while the other samples were simply counting vehicles. Therefore, although this combining and splicing of data is useful for observing general trends, one must be sure that the parameters for each smaple are **exactly** the same.
+   - Even then, this data should be used cautiously, and mainly serves to demostrate how it is possible to add together datasets.
 
 ## Gallery
 

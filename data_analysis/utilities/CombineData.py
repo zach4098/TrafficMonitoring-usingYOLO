@@ -1,16 +1,11 @@
 import os
-os.chdir("../")
-os.chdir("../")
+while 'data_analysis' in os.getcwd():
+    os.chdir("../")
+    print("<--")
 cwd = os.getcwd()
-print(cwd)
 
 import sys
 sys.path.append(cwd)
-
-import sys
-sys.path.append("/Users/zacharystarr/Desktop/TrafficMonitoring-usingYOLO/")
-import os
-os.chdir("/Users/zacharystarr/Desktop/TrafficMonitoring-usingYOLO/")
 
 from datetime import datetime, timedelta
 import params
