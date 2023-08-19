@@ -7,10 +7,12 @@ Research Documentation can be found [here](research_journals/), with studies on 
 ### Context
 Singapore is a densely populated city, and as a result much effort is put in by the government in order to create road infrastructure that safely and effectively controls traffic. However, peak hours still result in high car density, which can vary depending on the intersection.
 
+Being able to collect data on traffic such as vehicles per hour, speed, and even type of vehicle can provide valuable insight into how to increase road efficiency. For instance, it is shown that vehicle size has a larger correlation with congestion than vehicle speed. Being able to record data showing many trucks can help show the average size of a vehicle.
+
 ### Objective
 This project aims to collect traffic flow data at busy roads and intersections. This data can be used to determine when traffic density spikes, and which intersections are busiest. 
 
-In order to collect accurate data in various settings, Luxonis' [Oak-1 Lite Depth-AI camera](https://docs.luxonis.com/projects/hardware/en/latest/pages/NG9096/) was used. This is a high-resolution camera which employs on-chip machine learning, allowing it to efficiently run real-time computer vision programs, even on smaller computers such as a Raspberry Pi.
+In order to collect accurate data in various settings, Luxonis' [Oak-1 Lite Depth-AI camera](https://docs.luxonis.com/projects/hardware/en/latest/pages/NG9096/) was used. This is a high-resolution camera which employs on-chip machine learning, allowing it to efficiently run real-time computer vision programs, even on smaller computers such as a Raspberry Pi. Therefore, this solution is very lightweight and can be easily compacted, allowing for an easy yet reliable setup
 
 Collect Traffic Data using Oak-1 Lite Depth-AI Camera and YOLO-v4-tiny MobileNetV2 Neural Network
 
@@ -37,3 +39,9 @@ Further notes on research/project progress can be found [here](research_journals
 1. The Depth-AI Camera does not record video
 2. No license plate data is collected
 3. When collecting data, the Raspberry Pi is not connected to any devices via Bluetooth of Wi-Fi
+
+### Data Samples
+Each sample collection is analyzed in seperate notebooks:
+
+1. [Corporation Road](research_journals/corporation.md)
+2. [Westgate Mall](research_journals/westgate.md)
