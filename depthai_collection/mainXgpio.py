@@ -163,7 +163,7 @@ if start:
                 counter = 0
                 startTime = current_time
 
-            color = (255, 0, 0)
+            color = (255, 255, 255)
             yellow = (255, 255, 0)
             frame = imgFrame.getCvFrame()
             trackletsData = track.tracklets
@@ -245,8 +245,8 @@ if start:
                 elif len(vehicles) == 0:
                     GPIO.output(23, GPIO.LOW)"""
                 cv2.putText(frame, str(label), (x1 + 10, y1 + 20), cv2.FONT_HERSHEY_TRIPLEX, 0.5, 255)
-                cv2.putText(frame, f"ID: {[vehicleID]}", (x1 + 10, y1 + 35), cv2.FONT_HERSHEY_TRIPLEX, 0.5, 255)
-                cv2.putText(frame, vehicleStatus, (x1 + 10, y1 + 50), cv2.FONT_HERSHEY_TRIPLEX, 0.5, 255)
+                #cv2.putText(frame, f"ID: {[vehicleID]}", (x1 + 10, y1 + 35), cv2.FONT_HERSHEY_TRIPLEX, 0.5, 255)
+                #cv2.putText(frame, vehicleStatus, (x1 + 10, y1 + 50), cv2.FONT_HERSHEY_TRIPLEX, 0.5, 255)
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color, cv2.FONT_HERSHEY_SIMPLEX)
 
             if leftRight:
@@ -260,7 +260,7 @@ if start:
 
             cv2.putText(frame, "NN fps: {:.2f}".format(fps), (2, frame.shape[0] - 4), cv2.FONT_HERSHEY_TRIPLEX, 0.7, color)
 
-            cv2.imshow("tracker", frame)         
+            cv2.imshow("tracker", cv2.resize(frame, (1000, 1000)))         
             cv2.waitKey(1)
 """except:
     if not dataCollected:

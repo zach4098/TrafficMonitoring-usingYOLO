@@ -3,7 +3,6 @@ sys.path.append("/home/fyp2022/Desktop/TrafficMonitoring-usingYOLO")
 import os
 os.chdir("/home/fyp2022/Desktop/TrafficMonitoring-usingYOLO")
 
-from pathlib import Path
 import cv2
 import depthai as dai
 import numpy as np

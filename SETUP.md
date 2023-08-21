@@ -31,9 +31,11 @@ You can autostart the [main.py](depthai_collection/main.py) program in many diff
 1. Navigate to /home/pi/.config/lxsession/LXDE-pi/autostart
  * If the directory does not exist, you can simply create your own folder/autostart file
 2. Input the following command:
- *      nano autostart
+
+        nano autostart
 3. Configure your autostart file to look like the following:
- *      @lxpanel --profile LXDE-pi
+
+        @lxpanel --profile LXDE-pi
         @pcmanfm --desktop --profile LXDE-pi
         point-rpi
         @lxterminal
@@ -41,11 +43,18 @@ You can autostart the [main.py](depthai_collection/main.py) program in many diff
 
 #### Running [main.py](depthai_collection/main.py) on LXTerminal start
 1. In terminal, enter
- *      sudo nano /home/pi/.bashrc
+
+    ```bash
+    sudo nano /home/pi/.bashrc
+    ```
 2. Scroll to the very bottom of the file.
 3. In .bashrc file, enter
- *      echo running on startup    <-- optional
-        python3 /home/pi/Desktop/TrafficMonitoring-usingYOLO/depthai_collection/main.py
+
+    ```bash
+    echo running on startup    # optional
+    python3 /home/pi/Desktop/TrafficMonitoring-usingYOLO/depthai_collection/main.py
+    ```
+      
 4. Save and close all files
 
 ## Hardware Setup
