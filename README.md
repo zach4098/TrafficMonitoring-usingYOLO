@@ -40,6 +40,12 @@ Further notes on research/project progress can be found [here](research_journals
 2. No license plate data is collected
 3. When collecting data, the Raspberry Pi is not connected to any devices via Bluetooth of Wi-Fi
 
+### Data Collection Scripts
+
+[main.py](depthai_collection/main.py) is the main executable script. Its intention is to run on startup with no editing. In order to modify properties such as detection zone, default rush hours, or detection network file, go to [params.py](params.py)
+
+[mainXgpio.py](depthai_collection/mainXgpio.py) is meant for troubleshooting on a laptop or computer. The default [main.py](depthai_collection/main.py) script uses the Raspberry Pi's GPIO module, which is only available on the RPi itself. Additionally, instead of a try-except loop, [mainXgpio.py](depthai_collection/mainXgpio.py) simply allows an error to be thrown
+
 ## Pipeline
 <img src="media/images/project/pipeline.png" height="300">
 
@@ -48,3 +54,11 @@ Each sample collection is analyzed in seperate notebooks:
 
 1. [Corporation Road](research_journals/corporation.md)
 2. [Westgate Mall](research_journals/westgate.md)
+
+## Data Analysis
+
+There are 2 main data analysis scripts: [DataInterpreter.py](data_analysis/DataInterpreter.py) and [graph.ipynb](data_analysis/graph.ipynb). Note that using [graph.ipynb](data_analysis/graph.ipynb) with the RPi does not show graphs, at least without any downloaded extentions
+
+**[DataInterpreter.py](data_analysis/DataInterpreter.py)** allows for users to interact with the raw data, and put it into more valuable and legible forms. There are a number of utility scripts as well, which all have their own commands.
+
+**[graph.ipynb](data_analysis/graph.ipynb)**
