@@ -77,6 +77,7 @@ There are 2 main data analysis scripts: [DataInterpreter.py](data_analysis/DataI
 From the side, the AI can recognize bikes and motorbikes with higher accuracy. That being said, it struggles with seeing vehicles that may be behind others. One way to fix this would be to have the camera at a 45 degree angle to the street.
 
 **Question**: How to use DataInterpreter.txt?
+
 **Answer**: Here are the steps on how to use DataInterpreter.txt:
 1. When prompted “Select Action”, input “read”
     * If you have two separate data files that are recorded one after another, input “combine”
