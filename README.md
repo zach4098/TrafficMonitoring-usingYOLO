@@ -62,3 +62,35 @@ There are 2 main data analysis scripts: [DataInterpreter.py](data_analysis/DataI
 **[DataInterpreter.py](data_analysis/DataInterpreter.py)** allows for users to interact with the raw data, and put it into more valuable and legible forms. There are a number of utility scripts as well, which all have their own commands.
 
 **[graph.ipynb](data_analysis/graph.ipynb)**
+
+## Frequently Asked Questions:
+
+**Question**: main.py cannot run on a laptop. Is there a program that can be used to see the camera working?
+
+**Answer**: In the TrafficMonitoring-withYOLO GitHub repository, there is a folder named “depthai_collection”. Inside that folder, there are 2 programs: “main.py” and “mainXgpio”. “main.py” runs on the Raspberry Pi autostart, and uses a GPIO module which cannot be imported on a laptop. “mainXgpio” is the same program, but without the module and it shows the camera output as well. Run “mainXgpio” on the laptop.
+
+
+**Question**: How does the angle affect the accuracy of the data collection?
+
+**Answer**: The YOLOv6 is very good at a number of angles, but each come with upside and downside. From a birds-eye view (On top of an overhead bridge), the AI can recognize objects next to each other, and is very proficient with cars. However, it may sometimes struggle to recognize which direction the vehicle is coming from. 
+
+From the side, the AI can recognize bikes and motorbikes with higher accuracy. That being said, it struggles with seeing vehicles that may be behind others. One way to fix this would be to have the camera at a 45 degree angle to the street.
+
+**Question**: How to use DataInterpreter.txt?
+**Answer**: Here are the steps on how to use DataInterpreter.txt:
+1. When prompted “Select Action”, input “read”
+    * If you have two separate data files that are recorded one after another, input “combine”
+    * To clear the “data.xlsx” spreadsheet, input “clear”
+    * To make a new “data.xlsx” spreadsheet, input “new”
+    * If you have a recording with a large portion of pedestrians on bicycles, input “preprocess”. That program will find every instance where a pedestrian is recorded in tandem with a bicycle, and remove the pedestrian, therefore providing more accurate data.
+    * To end the program, input “end”
+2. When prompted “Select File to Read”, input the number corresponding to which dataset you would like to read
+3. When prompted “Enter Time Recording Started (XX:XX:XX)”, input the time recording started in the format shown above.
+    * Once you have completed this step for a file, it does not need to be done again. Simply press Enter
+4. In order to collect specialized data specifically during peak hours, input “y” for peak hours. You can enter your own, or press Enter in order to use the defaults.
+    * Repeat this step for night peak
+5. When prompted “Choose Vehicles(s) to Record:”, you can list all of the vehicles you would want there to be a column for. The key is available in the labelMap:
+    * NOTE: To record all vehicles, type “all”
+    * To record multiple vehicles, create a list such as the following:
+    * “all, truck, car, bicycle”
+         * This will return columns for all vehicles, trucks, cars, and bicycles with their corresponding data.
