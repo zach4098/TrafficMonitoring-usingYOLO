@@ -6,6 +6,8 @@ Research Documentation can be found [here](research_journals/), with studies on 
 
 YouTube channel containing sample videos can be found [here](https://www.youtube.com/channel/UCqRkp9kjYSKj8DlzjvyPHHA)
 
+Slideshow Presentation can be found [here](https://docs.google.com/presentation/d/e/2PACX-1vQjqpXUX0GFF_coIdIj5P7L_FFDAuRprBEvcPZd5yCXZTq5vvMjCs1dRWY39SzfXg/pub?start=false&loop=false&delayms=10000)
+
 ## Project Overview
 ### Context
 Singapore is a densely populated city, and as a result much effort is put in by the government in order to create road infrastructure that safely and effectively controls traffic. However, peak hours still result in high car density, which can vary depending on the intersection.
