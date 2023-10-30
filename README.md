@@ -19,7 +19,7 @@ This project aims to collect traffic flow data at busy roads and intersections. 
 
 In order to collect accurate data in various settings, Luxonis' [Oak-1 Lite Depth-AI camera](https://docs.luxonis.com/projects/hardware/en/latest/pages/NG9096/) was used. This is a high-resolution camera which employs on-chip machine learning, allowing it to efficiently run real-time computer vision programs, even on smaller computers such as a Raspberry Pi. Therefore, this solution is very lightweight and can be easily compacted, allowing for an easy yet reliable setup
 
-Collect Traffic Data using Oak-1 Lite Depth-AI Camera and YOLO-v4-tiny MobileNetV2 Neural Network
+Collect Traffic Data using Oak-1 Lite Depth-AI Camera and YOLO-v6 MobileNetV2 Neural Network
 
 ### Concept
 There are 3 points of emphasis in this project: **Accuracy, Efficiency,** and **Compatability**. 
